@@ -13,47 +13,62 @@ namespace DesafioProjetoHospedagem.Models
             DiasReservados = diasReservados;
         }
 
+        /// <summary>
+        /// Verifica se a capacidade é maior ou igual ao número de hóspedes sendo recebido
+        /// </summary>
+        /// <param name="hospedes"></param>
+        /// <exception cref="Exception"></exception>
         public void CadastrarHospedes(List<Pessoa> hospedes)
         {
-            // TODO: Verificar se a capacidade é maior ou igual ao número de hóspedes sendo recebido
-            // *IMPLEMENTE AQUI*
-            if (true)
+            if (hospedes.Count <= Suite.Capacidade)
             {
                 Hospedes = hospedes;
+                foreach (Pessoa p in Hospedes)
+                {
+                    Console.WriteLine($"Hóspede {p.NomeCompleto} cadastrado com sucesso");
+                }
             }
             else
             {
-                // TODO: Retornar uma exception caso a capacidade seja menor que o número de hóspedes recebido
-                // *IMPLEMENTE AQUI*
+                throw new Exception($"Reserva não permitida, pois o número de hóspedes informado ({hospedes.Count}) é maior que a capacidade da suíte");
             }
         }
 
+        /// <summary>
+        /// Realiza o cadastro da suíte
+        /// </summary>
+        /// <param name="suite"></param>
         public void CadastrarSuite(Suite suite)
         {
             Suite = suite;
+
+            Console.WriteLine($"\nSuíte {suite.TipoSuite} cadastrada com sucesso\n");
         }
 
+        /// <summary>
+        /// Retorna a quantidade de hóspedes
+        /// </summary>
+        /// <returns></returns>
         public int ObterQuantidadeHospedes()
         {
-            // TODO: Retorna a quantidade de hóspedes (propriedade Hospedes)
-            // *IMPLEMENTE AQUI*
-            return 0;
+            return Hospedes.Count;
         }
 
+        /// <summary>
+        /// Retorna o valor da diária baseado na quantidade de dias reservados x suite.valorDiaria
+        /// </summary>
+        /// <returns></returns>
         public decimal CalcularValorDiaria()
         {
-            // TODO: Retorna o valor da diária
-            // Cálculo: DiasReservados X Suite.ValorDiaria
-            // *IMPLEMENTE AQUI*
-            decimal valor = 0;
+            decimal valor;
 
-            // Regra: Caso os dias reservados forem maior ou igual a 10, conceder um desconto de 10%
-            // *IMPLEMENTE AQUI*
-            if (true)
+            valor = DiasReservados * Suite.ValorDiaria;
+
+            if (DiasReservados >= 10)
             {
-                valor = 0;
+                Console.WriteLine($"Parabéns, você ganhou um desconto de 10% na sua reserva");
+                valor *= 0.90M;
             }
-
             return valor;
         }
     }
